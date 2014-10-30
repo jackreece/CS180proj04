@@ -139,6 +139,11 @@ public class Sudoku {
         return ans;
     }
     
+    /**
+     * Encode the integer values in the current state of the game board into an 81-character String
+     * 
+     * @return 81-character String representing values in cells on the board
+     */
     public String encodeBoard() {
         String ans = "";
         for (int r = 0; r < board.length; r++) {
@@ -149,6 +154,10 @@ public class Sudoku {
         return ans;
     }
     
+    /**
+     * Decode a string of the type returned by the method encodeBoard() and set the board to reflect these values
+     * @param s the String to be decoded
+     */
     public void decodeStringToBoard(String s) {
         char[] a = s.toCharArray();
         for (int i = 0; i < board.length; i++) {
@@ -158,19 +167,29 @@ public class Sudoku {
         }
     }
     
+    /**
+     * In its present implementation the main method is only being used for testing
+     * @param args
+     */
     public static void main(String[] args) {
         Sudoku S = new Sudoku();
         S.decodeStringToBoard("123000000000000000000000000000000000000000000000000000000000000000000000000000000");
         System.out.println(S.board()[0][1]);
     }
     
-    /*
+    
     public int[][] decodedBoard(String s) {
         int[][] ans = new int[9][9];
         char[] a = s.toCharArray();
         java.util.Scanner sc = new java.util.Scanner(s);
+        for (int i = 0; i < ans.length; i++) {
+            for (int j = 0; j < ans[0].length; j++) {
+                ans[i][j] = Integer.parseInt("" + a[(9 * i) + j]);
+            }
+        }
+
+        return ans;
         
     }
-    */
     
 }
