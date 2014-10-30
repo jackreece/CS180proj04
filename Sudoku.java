@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Sudoku {
     
     private int[][] board;
@@ -19,6 +21,37 @@ public class Sudoku {
         }
         return ans;
     }
+
+    /**
+     * Print a text representation of the board in its current state to standard out
+     */
+    public void printBoard() {
+        //returns a COPY of the current state of the board
+        char letter = 64;
+        System.out.println("    1 2 3   4 5 6   7 8 9 ");
+        for (int j = 0; j < 13; j++) {
+            letter++;
+            if (j % 4 == 0) {
+                System.out.println("  +-------+-------+-------+");
+                letter--;
+            } else {
+                System.out.print(letter + " |");
+                for (int i = 0; i < 9; i++) {
+                    if (board[j][i] == 0) {
+                        System.out.print("  ");
+                    } else {
+                        System.out.print(" " + board[j][i]);
+                    }
+                    if (i == 2 || i == 5 || i == 8) {
+                        System.out.print(" |");
+                    }
+                    
+                }
+                System.out.println();
+            }
+        }
+    }
+
     
     /**
      * Arguments to row and column are integers numbered 1 - 9 (NOT 0 - 8)
@@ -32,6 +65,9 @@ public class Sudoku {
         if (column > 9 || column < 1) {
             return ans;
         }
+        if (board[row][column] != 0) {
+            return ans;
+        }
         for (int i = 0; i < ans.length; i++) {
             ans[i] = true;
         }
@@ -41,8 +77,8 @@ public class Sudoku {
         row--;
         column--;
         
-        int boxR = row / 3; // The row which marks the corner of the box to iterate over
-        int boxC = column / 3; // The column which ""
+        int boxR = (row / 3) * 3; // The row which marks the corner of the box to iterate over
+        int boxC = (column / 3) * 3; // The column which ""
         
         // Find candidates by iterating over the box in which the cell resides
         for (int r = boxR; r < boxR + 3; r++) {
@@ -114,14 +150,27 @@ public class Sudoku {
     }
     
     public void decodeStringToBoard(String s) {
-        
+        char[] a = s.toCharArray();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = Integer.parseInt("" + a[(9 * i) + j]);
+            }
+        }
     }
     
+    public static void main(String[] args) {
+        Sudoku S = new Sudoku();
+        S.decodeStringToBoard("123000000000000000000000000000000000000000000000000000000000000000000000000000000");
+        System.out.println(S.board()[0][1]);
+    }
+    
+    /*
     public int[][] decodedBoard(String s) {
         int[][] ans = new int[9][9];
         char[] a = s.toCharArray();
         java.util.Scanner sc = new java.util.Scanner(s);
         
     }
+    */
     
 }
