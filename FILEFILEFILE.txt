@@ -1,0 +1,2 @@
+this is some dummy text that i put in this file to test whether git will only
+commit new files with some actual text in them
